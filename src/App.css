@@ -1,0 +1,37 @@
+.ribbon {
+  position: relative;
+  background: linear-gradient(to right, #e11d48, #be123c); /* deep red */
+  height: 50px;
+  line-height: 50px;
+  border-radius: 5px;
+  padding: 0 20px;
+  z-index: 1;
+  box-shadow: inset 10px 0 0 rgba(255, 255, 255, 0.1),
+              inset -10px 0 0 rgba(255, 255, 255, 0.1);
+  
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 100%;
+  background: #991b1b;
+  z-index: -1;
+}
+
+.ribbon::before {
+  left: -20px;
+  transform: skewX(-20deg);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.ribbon::after {
+  right: -20px;
+  transform: skewX(20deg);
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

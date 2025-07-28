@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const images = [purse1, purse2, purse3];
 
-const MenHeader = () => {
+const WomenHeader = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -17,35 +17,33 @@ const MenHeader = () => {
   }, []);
 
   return (
-    <div className="h-96 w-full bg-gradient-to-r from-rose-100 to-purple-200 flex items-center justify-between px-8 rounded-xl shadow-md">
-  {/* LEFT TEXT CONTENT */}
-      <div
-        style={{ fontFamily: "'Ancizar Sans'" }}
-        className="text-left max-w-xl space-y-4 z-10"
-      >
-        <p className="font-bold text-5xl leading-snug text-slate-800 drop-shadow">
-          Men's Collection.
-          <span className="block text-blue-700">Style Meets Power</span>
+    <div className="w-full bg-gradient-to-r from-rose-100 to-purple-200 rounded-2xl shadow-lg px-4 py-8 sm:py-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-8">
+      
+      {/* TEXT */}
+      <div className="text-center sm:text-left max-w-xl space-y-4 z-10">
+        <p className="font-bold text-3xl sm:text-5xl leading-snug text-slate-800 drop-shadow">
+          Women's Collection.
+          <span className="block text-purple-700">Grace in Every Thread</span>
         </p>
-        <Link to="/Mens" className="font-medium text-xl">
-          <button className="px-6 py-3 bg-white rounded-full text-blue-700 border border-blue-300 hover:bg-blue-100 transition-all duration-300 shadow-md">
+        <Link to="/Womens">
+          <button className="mt-2 px-6 py-3 bg-white rounded-full text-purple-700 border border-purple-300 hover:bg-purple-100 transition-all duration-300 shadow-md">
             Shop Now <i className="fa-solid fa-arrow-right ml-2"></i>
           </button>
         </Link>
       </div>
 
-      {/* RIGHT IMAGE WITH SOFT WHITE GLOW */}
-      <div className="relative flex justify-end items-center h-96 w-[350px] sm:w-[450px] overflow-visible">
-        {/* Soft white blurred glow */}
-        <div className="absolute right-8 top-1/2 -translate-y-1/2 w-72 h-72 sm:w-96 sm:h-96 rounded-full z-0"
+      {/* IMAGE */}
+      <div className="relative flex justify-center items-center w-full sm:w-[400px] h-72 sm:h-96">
+        {/* Glow */}
+        <div
+          className="absolute w-60 h-60 sm:w-80 sm:h-80 rounded-full"
           style={{
             backgroundColor: 'white',
             filter: 'blur(60px)',
             opacity: 0.6,
           }}
         />
-
-        {/* Rotating image */}
+        {/* Image */}
         <img
           src={images[currentIndex]}
           className="h-full object-contain relative z-10 transition-all duration-700 ease-in-out"
@@ -56,7 +54,4 @@ const MenHeader = () => {
   );
 };
 
-export default MenHeader;
-
-    
-    
+export default WomenHeader;

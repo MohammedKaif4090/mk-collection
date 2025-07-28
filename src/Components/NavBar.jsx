@@ -5,11 +5,13 @@ const NavBar = () => {
   return (
 
       <div className='flex justify-between px-5 bg-stone-50'>
-        <div >
+        <NavLink to="/" className="font-medium text-xl">
+            <div >
           <img src={logo} className='h-16 w-44' alt='logo' />
         </div>
+            </NavLink>
         <div className='flex w-80 gap-5 items-center'>
-            <NavLink to="/" className="font-medium text-xl">Home</NavLink>
+            
             <NavLink to="/Mens" className="font-medium text-xl">Mens</NavLink>
             <NavLink to="/Womens" className="font-medium text-xl">Womens</NavLink>
             <NavLink to="/Kids" className="font-medium text-xl">Kids</NavLink>

@@ -23,12 +23,24 @@ const Home = () => {
 
   return (
     <div>
-      <div className='flex my-2 mx-2 gap-2'>
-        <Link to='http://localhost:5173/'>
-        <img src={img} className="h-80 w-[780px] object-cover rounded-xl shadow-md "/>
-        </Link>
-        <img src={img1} alt="Product image" className="h-80 w-[780px] object-cover rounded-xl shadow-md " />
-      </div>
+<div className="flex my-2 mx-2 gap-2">
+  <Link to="https://mk-grocerry.onrender.com" className="flex-1 min-w-0">
+    <img
+      src={img}
+      alt="Image 1"
+      className="w-full h-44 sm:h-80 object-cover rounded-xl shadow-md"
+    />
+  </Link>
+  <div className="flex-1 min-w-0">
+    <img
+      src={img1}
+      alt="Product image"
+      className="w-full h-44 sm:h-80 object-cover rounded-xl shadow-md"
+    />
+  </div>
+</div>
+
+
       <Header />
       <div className="overflow-y-auto flex flex-row gap-4 p-4">
         {randomProducts.map((item) => (

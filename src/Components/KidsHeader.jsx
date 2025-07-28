@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const images = [purse1, purse2, purse3];
 
-const MenHeader = () => {
+const KidsHeader = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -55,4 +55,4 @@ const MenHeader = () => {
   );
 };
 
-export default MenHeader;
+export default KidsHeader;

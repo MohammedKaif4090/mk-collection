@@ -4,7 +4,7 @@ import { slugify } from './utils/slugify'
 import { data } from '../assets/data';
 import Card from './Card';
 import MenHeader from './MenHeader';
-import KidsHeader from './kidsHeader';
+import KidsHeader from './KidsHeader';
 import { Link } from 'react-router-dom'; 
 import img from '../assets/4042e044-05c5-45a5-9c80-ec621cac5add.png'
 import img1 from '../assets/M.K Tour and Travel Promo Design.png'

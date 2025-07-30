@@ -11,7 +11,7 @@ const Womens = () => {
   return (
     <>
       <Header />
-     <div className=' grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 sm:gap-1'>
+     <div className=' grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 sm:gap-1 mx-3'>
         {filteredProducts.map((item) => (
            <Link to={`/details/${slugify(item.title)}/${item.id}`} key={item.id}>
           <Card

@@ -28,7 +28,7 @@ const Card = ({ image, title, price, rating = 4 }) => {
 
   return (
     <div
-      className="relative rounded-xl w-44 sm:w-72 flex flex-col justify-between overflow-hidden border mt-2 ml-1.5"
+      className="relative rounded-xl w-40 sm:w-72 flex flex-col justify-between overflow-hidden border mt-2 "
       style={{
         borderColor: buttonColor,
         borderWidth: '1px',

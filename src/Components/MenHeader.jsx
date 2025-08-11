@@ -8,7 +8,49 @@ const images = [purse1, purse2, purse3];
 
 const MenHeader = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [bgColor, setBgColor] = useState('#ffffff');
 
+  // Function to extract average color ignoring transparent pixels
+  const getAverageColor = (imgElement) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = imgElement.width;
+    canvas.height = imgElement.height;
+    ctx.drawImage(imgElement, 0, 0);
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let r = 0, g = 0, b = 0, count = 0;
+
+    for (let i = 0; i < imageData.data.length; i += 4) {
+      const alpha = imageData.data[i + 3];
+      if (alpha > 200) { // Ignore transparent pixels
+        r += imageData.data[i];
+        g += imageData.data[i + 1];
+        b += imageData.data[i + 2];
+        count++;
+      }
+    }
+
+    if (count > 0) {
+      r = Math.floor(r / count);
+      g = Math.floor(g / count);
+      b = Math.floor(b / count);
+    }
+
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+
+  useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = images[currentIndex];
+    img.onload = () => {
+      const avgColor = getAverageColor(img);
+      setBgColor(avgColor);
+    };
+  }, [currentIndex]);
+
+  // Change image every 3 sec
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -17,26 +59,32 @@ const MenHeader = () => {
   }, []);
 
   return (
-    <div className="w-full bg-gradient-to-r from-blue-100 to-slate-200 flex flex-col sm:flex-row items-center justify-between px-6 sm:px-8 py-6 sm:py-0 rounded-xl shadow-md overflow-hidden">
+    <div
+      className="w-full flex flex-col sm:flex-row items-center justify-between px-6 sm:px-8 py-6 sm:py-0 rounded-xl shadow-md overflow-hidden transition-colors duration-500"
+      style={{ backgroundColor: bgColor }}
+    >
       {/* IMAGE SECTION */}
       <div className="relative flex justify-center items-center w-full sm:w-[450px] h-72 sm:h-96 mt-6 sm:mt-0">
-        {/* Soft blurred glow */}
+        {/* White glow around image */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-60 h-60 sm:w-96 sm:h-96 rounded-full z-0"
+          className="absolute rounded-full"
           style={{
+            width: 'calc(100% - 100px)',
+            height: 'calc(100% - 100px)',
             backgroundColor: 'white',
-            filter: 'blur(60px)',
-            opacity: 0.6,
+            filter: 'blur(50px)',
+            opacity: 0.8,
+            zIndex: 0,
           }}
         />
-        {/* Rotating Image */}
+        {/* Product image */}
         <img
           src={images[currentIndex]}
           className="max-h-full object-contain relative z-10 transition-all duration-700 ease-in-out"
           alt={`Product ${currentIndex + 1}`}
         />
       </div>
-      
+
       {/* TEXT SECTION */}
       <div
         style={{ fontFamily: "'Ancizar Sans'" }}
@@ -54,8 +102,6 @@ const MenHeader = () => {
           </button>
         </Link>
       </div>
-
-      
     </div>
   );
 };

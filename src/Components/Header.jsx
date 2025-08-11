@@ -8,7 +8,50 @@ const images = [purse1, purse2, purse3];
 
 const WomenHeader = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [bgColor, setBgColor] = useState('#ffffff');
 
+  // Extract average color ignoring transparency
+  const getAverageColor = (imgElement) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = imgElement.width;
+    canvas.height = imgElement.height;
+    ctx.drawImage(imgElement, 0, 0);
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let r = 0, g = 0, b = 0, count = 0;
+
+    for (let i = 0; i < imageData.data.length; i += 4) {
+      const alpha = imageData.data[i + 3];
+      if (alpha > 200) { // Ignore transparent pixels
+        r += imageData.data[i];
+        g += imageData.data[i + 1];
+        b += imageData.data[i + 2];
+        count++;
+      }
+    }
+
+    if (count > 0) {
+      r = Math.floor(r / count);
+      g = Math.floor(g / count);
+      b = Math.floor(b / count);
+    }
+
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+
+  // Update background color when image changes
+  useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.src = images[currentIndex];
+    img.onload = () => {
+      const avgColor = getAverageColor(img);
+      setBgColor(avgColor);
+    };
+  }, [currentIndex]);
+
+  // Change image every 3s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -17,8 +60,10 @@ const WomenHeader = () => {
   }, []);
 
   return (
-    <div className="w-full bg-gradient-to-r from-rose-100 to-purple-200 rounded-2xl shadow-lg px-4 py-8 sm:py-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-8">
-      
+    <div
+      className="w-full rounded-2xl shadow-lg px-4 py-8 sm:py-6 flex flex-col-reverse sm:flex-row items-center justify-between gap-8 transition-colors duration-500"
+      style={{ backgroundColor: bgColor }}
+    >
       {/* TEXT */}
       <div className="text-center sm:text-left max-w-xl space-y-4 z-10">
         <p className="font-bold text-3xl sm:text-5xl leading-snug text-slate-800 drop-shadow">
@@ -34,13 +79,16 @@ const WomenHeader = () => {
 
       {/* IMAGE */}
       <div className="relative flex justify-center items-center w-full sm:w-[400px] h-72 sm:h-96">
-        {/* Glow */}
+        {/* White Glow */}
         <div
-          className="absolute w-60 h-60 sm:w-80 sm:h-80 rounded-full"
+          className="absolute rounded-full"
           style={{
+            width: 'calc(100% - 100px)',
+            height: 'calc(100% - 100px)',
             backgroundColor: 'white',
-            filter: 'blur(60px)',
-            opacity: 0.6,
+            filter: 'blur(50px)',
+            opacity: 0.8,
+            zIndex: 0,
           }}
         />
         {/* Image */}
